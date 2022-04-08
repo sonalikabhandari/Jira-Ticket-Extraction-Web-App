@@ -1,0 +1,83 @@
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>cbo-backbone-dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<style type="text/css"> -->
+
+
+{% extends 'base_layout.html' %}
+{% block content %}
+
+
+<!-- th{ background-color : #C0C0C0;
+  font-family :  Helvetica, sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 16px;
+}
+body{
+  font-size: 14px;
+  font-family :  Georgia, sans-serif;
+}
+</style>
+  </head>
+
+    <div class="container-fluid">
+      <form method="post">{% csrf_token %}
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-default pull-right" name="excel">{{"Excel Report"}}</button>
+        </div>
+      </form> -->
+      <table class="table table-striped table bordered mydatatable" style = "width : 100%" id="mydatatable">
+      <!-- <table class="cell-border" style = "width : 100%" id="mydatatable"> -->
+        <thead>
+          <tr>
+            <th>CBOBBCM_Key</th>
+            <th>CBOBBIPPD_Key</th>
+            <th>Child_Summary</th>
+            <th>Child_Status</th>
+            <th>Child_Assignee</th>
+            <th>Child_Created</th>
+            <th>Grand_Child_Key</th>
+            <th>Grand_Child_Summary</th>
+            <th>Grand_Child_Status</th>
+            <th>Grand_Child_Assignee</th>
+            <th>Grand_Child_Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in new_d%}
+
+          <tr>
+            <td><a href="https://jira.charter.com/browse/{{ticket.CBOBBCM_Key}}">{{ticket.CBOBBCM_Key}}</a></td>
+            <td><a href="https://jira.charter.com/browse/{{ticket.CBOBBIPPD_Key}}">{{ticket.CBOBBIPPD_Key}}</a></td>
+            <td>{{ticket.Child_Summary}}</td>
+            <td>{{ticket.Child_Status}}</td>
+            <td>{{ticket.Child_Assignee}}</td>
+            <td>{{ticket.Child_Created|date:"d-m-Y"}}</td>
+            <td><a href="https://jira.charter.com/browse/{{ticket.Grand_Child_Key}}">{{ticket.Grand_Child_Key}}</a></td>
+            <td>{{ticket.Grand_Child_Summary}}</td>
+            <td>{{ticket.Grand_Child_Status}}</td>
+            <td>{{ticket.Grand_Child_Assignee}}</td>
+            <td>{{ticket.Grand_Child_Created|date:"d-m-Y"}}</td>
+
+          </tr>
+
+          {% endfor %}
+        </tbody>
+</table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+      $('.mydatatable').DataTable( );
+    </script>
+ {% endblock %}
